@@ -9,7 +9,6 @@ const findOne = async (list, { key, value }) => {
     return new Promise((resolve, reject) => {
         // Esta promesa esperará dos segundos antes de ejecutarse, gracias al setTimeout.
 
-
         // Una vez que se ha evaluado si 'element[key]' es igual a 'value', se acumulará el valor devuelto por el método .find() en la variable declarada como 'element' (si es verdadero se devuelve el objeto con su clave/valor, si es falso se devuelve el valor 'undefined'), y posteriormente habrá dos caminos:
         // Si 'element' tiene un valor entonces se llamará a la función onSuccess con 'element' como parámetro, si no cumple esta condición se llamará a la función onErrror con un mensaje (string) como parámetro, en este caso: 'ERROR: Element Not Found'.
         setTimeout(() => {
@@ -18,7 +17,6 @@ const findOne = async (list, { key, value }) => {
             // Así el método .find() compara si element[key] es igual al valor pasado en el parámetro value. Ej.: Si Fermin es igual a Ana.
             // Una vez que se ha evaluado si 'element[key]' es igual a 'value', se acumulará el valor devuelto por el método .find() en la variable declarada como 'element' (si es verdadero se devuelve el objeto con su clave/valor, si es falso se devuelve el valor 'undefined').
             const element = list.find(element => element[key] === value);
-
 
             if (element !== undefined) {
                 // Si 'element' no es undefined, es decir, si ha encontrado una coincidencia en 'users' con el valor del parámetro value, entonces la promesa será resuelta y el método resolve() será ejecutado con el valor element.value como parámetro.
@@ -31,10 +29,10 @@ const findOne = async (list, { key, value }) => {
     });
 };
 
-// // Aquí se declaran las dos funciones que recibe findOne como callback.
-// // onSuccess imprime en consola el valor name recibido.
+// Aquí se declaran las dos funciones que se ejecutarán cuando la promesa dentro de findOne() se resuleva o de rechace.
+// onSuccess imprime en consola el valor name recibido como parámetro.
 const onSuccess = (name) => console.log(`user: ${name}`);
-// // onError imprime en consola el mensaje recibido desde la función findOne.
+// onError imprime en consola el mensaje recibido como parámetro.
 const onError = (msg) => console.log(msg);
 
 // Este es el array que es pasado a la función findOne como parámetro
