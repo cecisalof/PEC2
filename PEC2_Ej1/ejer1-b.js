@@ -9,8 +9,6 @@ const findOne = async (list, { key, value }) => {
     return new Promise((resolve, reject) => {
         // Esta promesa esperará dos segundos antes de ejecutarse, gracias al setTimeout.
 
-        // Una vez que se ha evaluado si 'element[key]' es igual a 'value', se acumulará el valor devuelto por el método .find() en la variable declarada como 'element' (si es verdadero se devuelve el objeto con su clave/valor, si es falso se devuelve el valor 'undefined'), y posteriormente habrá dos caminos:
-        // Si 'element' tiene un valor entonces se llamará a la función onSuccess con 'element' como parámetro, si no cumple esta condición se llamará a la función onErrror con un mensaje (string) como parámetro, en este caso: 'ERROR: Element Not Found'.
         setTimeout(() => {
             // list.find() permite hacer una búsqueda dentro del array 'users' para buscar elementos que coincidan con el parámetro 'value' pasado a esta función.
             // En la búsqueda a través del array, 'element' respresenta cada uno de los objetos en 'users' y 'element[key]' representa el valor de 'name' de cada objeto en el array 'users'.
