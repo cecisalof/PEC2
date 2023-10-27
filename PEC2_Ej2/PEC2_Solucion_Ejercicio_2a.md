@@ -37,7 +37,7 @@ En este proyecto en particular, todos los handlers están creados como funciones
 
 ```this.view.bindAddTodo(this.handleAddTodo.bind(this))```.
 
-Ahora bien, cuando cambiamos la línea ```this.view.bindAddTodo(this.handleAddTodo);``` por ```this.view.bindAddTodo(this.service.addTodo);``` el handle que recibe ```bindAddTodo``` es directamente ```addTodo``` del servicio. ```addTodo``` NO está declarada como función flecha por lo que el contexto de ```this``` es undefined.
+Ahora bien, cuando cambiamos la línea ```this.view.bindAddTodo(this.handleAddTodo);``` por ```this.view.bindAddTodo(this.service.addTodo);``` el handle que recibe ```bindAddTodo``` es directamente ```addTodo``` del servicio. ```addTodo``` NO está declarada como función flecha por lo que el contexto de ```this``` es undefined, porque hace referencia al scope global, es decir al objeto window.
 
 Si convertimos ```addTodo``` en una arrow function y mantenemos la línea de código ```this.view.bindAddTodo(this.service.addTodo);``` el contexto de ```this``` sería el contexto del constructor de la clase TodoService y entonces  ```this``` no sería undefined. De esta manera ```addTodo``` podría acceder al array de ```todos```, y así empujar una nueva instancia del objeto ```Todo```. 
 El array ```todos```con la nueva instancia creada en ```addTodo``` sería pasado a ```onTodoListChanged``` para informarle al modelo que han habido cambios y que es necesario avisar a la vista de estos los cambios para que ésta se actualice (o sea, actualice el DOM) adecuadamente. La memoria local también es actualziada en este paso con  ```localStorage.setItem("todos", JSON.stringify(todos));``` desde ```onTodoListChanged```.
