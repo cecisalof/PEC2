@@ -22,7 +22,7 @@ Cuando usamos la línea de código ```this.view.bindAddTodo(this.handleAddTodo);
 
 El contexto de ```this``` en el controlador, en este caso en concreto, es:
 
-TodoController {onTodoListChanged: ƒ, handleAddTodo: ƒ, handleEditTodo: ƒ, handleDeleteTodo: ƒ, handleToggleTodo: ƒ, …}
+```TodoController {onTodoListChanged: ƒ, handleAddTodo: ƒ, handleEditTodo: ƒ, handleDeleteTodo: ƒ, handleToggleTodo: ƒ, …}
 handleAddTodo: todoText => {…}
 handleDeleteTodo: id => { this.service.deleteTodo(id); }
 handleEditTodo: (id, todoText) => {…}
@@ -31,6 +31,7 @@ onTodoListChanged: todos => { this.view.displayTodos(todos); }
 service: TodoService {todos: Array(1), addTodo: ƒ, onTodoListChanged: ƒ}
 view: TodoView {app: div#root, form: form, input: input, submitButton: button, title: h1, …}
 [[Prototype]]: Object
+```
 
 En este proyecto en particular, todos los handlers están creados como funciones flecha, porque las 'arrow functions' permiten que los handlers sean llamados en la vista usando el contexto de ```this``` del controlador. Si no se usaran funciones flecha, se tendrían que vincular manualmente, como por ejemplo: 
 
