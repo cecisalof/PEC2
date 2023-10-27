@@ -113,12 +113,20 @@ class TodoView {
     });
   }
 
+
+  // Event listeners on the DOM elements to let controller know when to call the hanlders.
+
+  // In this case we are responding to de submit event on the form, and invoking the corresponding handler.
   bindAddTodo(handler) {
+    // here the handler is handleAddTodo (from controller).
+    // console.log(handler);
+    /* in the context of the constructor, this return the DOM elements: app, form, input, submitButton, title, todoList, _temporaryTodoText */
+    // console.log(this);
     this.form.addEventListener("submit", event => {
       event.preventDefault();
-
+      //_todoText is the getter for the input value
       if (this._todoText) {
-        // this.input.value se guarda en this._todoText;
+        // input.value is passed as parameter of handleAddTodo()
         handler(this._todoText);
         this._resetInput();
       }
