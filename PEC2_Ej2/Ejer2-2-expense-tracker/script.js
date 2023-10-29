@@ -117,4 +117,5 @@ function init() {
 
 init();
 
+// listener of submit form event
 form.addEventListener('submit', addTransaction);
