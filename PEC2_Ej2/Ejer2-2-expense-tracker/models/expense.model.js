@@ -7,11 +7,8 @@
 class Expense {
     constructor({ text, amount }) {
         this.id = this.uuidv4();
-        console.log(amount);
-        console.log(text);
         this.text = text,
         this.amount = amount
-        console.log(this);
     }
 
     // Método que genera ID aleatorias

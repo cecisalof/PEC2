@@ -18,12 +18,12 @@ class ExpenseView {
         this.income = this.createElement("h4");
         this.income.textContent = "Income";
         this.moneyPlus = this.createElement("p");
-        this.moneyPlus.textContent =  "+$0.00";
+        this.moneyPlus.textContent = "+$0.00";
         this.div2 = this.createElement("div");
         this.expense = this.createElement("h4");
         this.expense.textContent = "Expense";
         this.moneyMinus = this.createElement("p");
-        this.moneyMinus.textContent =  "-$0.00";
+        this.moneyMinus.textContent = "-$0.00";
         this.div.append(this.income, this.moneyPlus);
         this.div2.append(this.expense, this.moneyMinus);
         this.incExpContainer.append(this.div, this.div2);
@@ -92,51 +92,49 @@ class ExpenseView {
     // Displaying the todo list, that will change every time a change is made to the todos.
     // Every time a todo is changed, added, or removed, the displayTodos method will be called again with the todos from the model, resetting the list and redisplaying them. This will keep the view in sync with the model state.
     displayExpenses(expenses) {
-      // Delete all nodes every time this function is called
-      while (this.expenseList.firstChild) {
-        this.expenseList.removeChild(this.expenseList.firstChild);
-      }
+        // Delete all nodes every time this function is called
+        while (this.expenseList.firstChild) {
+            this.expenseList.removeChild(this.expenseList.firstChild);
+        }
 
-      // Show default message
-      // Check if any todos exist. If they don't, we'll display an empty list message.
-      if (expenses.length === 0) {
-        const p = this.createElement("p");
-        p.textContent = "Nothing to do! Add a task?";
-        this.expenseList.append(p);
-      } else {
-        // Create nodes
-        // Loop through the todos and display a checkbox, span, and delete button for every existing todo
-        expenses.forEach(expense => {
-          const li = this.createElement("li");
-        //   li.id = expense.id;
+        // Show default message
+        // Check if any todos exist. If they don't, we'll display an empty list message.
+        if (expenses.length === 0) {
+            // const p = this.createElement("p");
+            // p.textContent = "Nothing to do! Add a task?";
+            // this.expenseList.append(p);
+        } else {
+            // Create nodes
+            // Loop through the todos and display a checkbox, span, and delete button for every existing todo
+            expenses.forEach(expense => {
+                const li = this.createElement("li");
+                li.id = expense.id;
 
-        //   const checkbox = this.createElement("input");
-        //   checkbox.type = "checkbox";
-        //   checkbox.checked = expense.complete;
+                li.textContent = expense.text;
+                const span = this.createElement("span");
+                span.contentEditable = true;
+                span.classList.add("editable");
+                span.textContent = expense.amount;
 
-        //   const span = this.createElement("span");
-        //   span.contentEditable = true;
-        //   span.classList.add("editable");
+                //   if (expense) {
+                //     const strike = this.createElement("s");
+                //     strike.textContent = expense.text;
+                //     span.append(strike);
+                //   } else {
+                //     span.textContent = expense.text;
+                //   }
 
-        //   if (todo.complete) {
-        //     const strike = this.createElement("s");
-        //     strike.textContent = todo.text;
-        //     span.append(strike);
-        //   } else {
-        //     span.textContent = todo.text;
-        //   }
+                const deleteButton = this.createElement("button", "delete");
+                deleteButton.textContent = "x";
+                li.append(span);
 
-        //   const deleteButton = this.createElement("button", "delete");
-        //   deleteButton.textContent = "Delete";
-        //   li.append(checkbox, span, deleteButton);
+                // Append nodes
+                this.expenseList.append(deleteButton, li);
+            });
+        }
 
-          // Append nodes
-          this.expenseList.append(li);
-        });
-      }
-
-      // Debugging
-      // console.log(todos);
+        // Debugging
+        // console.log(todos);
     }
 
     _initLocalListeners() {
@@ -169,15 +167,15 @@ class ExpenseView {
         });
     }
 
-    // bindDeleteTodo(handler) {
-    //   this.todoList.addEventListener("click", event => {
-    //     if (event.target.className === "delete") {
-    //       const id = event.target.parentElement.id;
+    bindDeleteExpense(handler) {
+        this.expenseList.addEventListener("click", event => {
+            if (event.target.className === "delete") {
+                const id = event.target.parentElement.children[1].id;
 
-    //       handler(id);
-    //     }
-    //   });
-    // }
+                handler(id);
+            }
+        });
+    }
 
     // bindEditTodo(handler) {
     //   this.todoList.addEventListener("focusout", event => {
