@@ -159,7 +159,7 @@ class ExpenseView {
         this.form.addEventListener("submit", event => {
             event.preventDefault();
             //_expenseText is the getter for the input value
-            if (this._expenseText) {
+            if (this._expenseText && this._expenseAmount) {
                 // input.value is passed as parameter of handleAddExpense()
                 handler(this._expenseText, this._expenseAmount);
                 this._resetInput();
