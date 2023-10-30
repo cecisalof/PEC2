@@ -9,10 +9,8 @@
 
 class ExpenseService {
     constructor() {
-        this.expenses = (JSON.parse(localStorage.getItem("transactions")) || []).map(
-            expense => {
-                new Expense(expense)
-            }
+        this.expenses = (JSON.parse(localStorage.getItem("expenses")) || []).map(
+            expense => new Expense(expense)
         );
         // console.log(this);
     }
@@ -26,7 +24,6 @@ class ExpenseService {
 
     // private method to update the value of localStorage as well as the model state
     _commit(expenses) {
-        console.log(expenses);
         // after every method in the model, we need to call onExpenseListChanged callback to let model fire back to the controller to let it know something happened.
         this.onExpenseListChanged(expenses);
         localStorage.setItem("expenses", JSON.stringify(expenses));
