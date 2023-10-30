@@ -67,30 +67,27 @@ class ExpenseView {
     // Setter of the input value
     _resetInput() {
         this.input.value = "";
+        this.amountInput.value = "";
     }
 
     // Helper methods to retrieve an element and create an element.
 
     // Create an element
     createElement(tag, className) {
-
         const element = document.createElement(tag);
-
         if (className) element.classList.add(className);
-
         return element;
     }
 
     // Retrieve an element
     getElement(selector) {
         const element = document.querySelector(selector);
-
         return element;
     }
 
 
     // Displaying the todo list, that will change every time a change is made to the todos.
-    // Every time a todo is changed, added, or removed, the displayTodos method will be called again with the todos from the model, resetting the list and redisplaying them. This will keep the view in sync with the model state.
+    // Every time a expense is changed, added, or removed, the displayExpenses method will be called again with the expenses from the model, resetting the list and redisplaying them. This will keep the view in sync with the model state.
     displayExpenses(expenses) {
         // Delete all nodes every time this function is called
         while (this.expenseList.firstChild) {
@@ -105,16 +102,20 @@ class ExpenseView {
             // this.expenseList.append(p);
         } else {
             // Create nodes
-            // Loop through the todos and display a checkbox, span, and delete button for every existing todo
+            // Loop through the expenses and display a checkbox, span, and delete button for every existing todo
             expenses.forEach(expense => {
                 const li = this.createElement("li");
                 li.id = expense.id;
 
-                li.textContent = expense.text;
+                const text = this.createElement("span");
+                text.textContent = expense.text;
+                text.contentEditable = true;
+                text.classList.add("editable");
                 const span = this.createElement("span");
                 span.contentEditable = true;
                 span.classList.add("editable");
                 span.textContent = expense.amount;
+                // li.textContent = expense.text;
 
                 //   if (expense) {
                 //     const strike = this.createElement("s");
@@ -126,15 +127,15 @@ class ExpenseView {
 
                 const deleteButton = this.createElement("button", "delete");
                 deleteButton.textContent = "x";
-                li.append(span);
+                li.append(deleteButton, text, span);
 
                 // Append nodes
-                this.expenseList.append(deleteButton, li);
+                this.expenseList.append(li);
             });
         }
 
         // Debugging
-        // console.log(todos);
+        // console.log(expenses);
     }
 
     _initLocalListeners() {
@@ -156,7 +157,6 @@ class ExpenseView {
         /* in the context of the constructor, this return the DOM elements: app, form, input, submitButton, title, todoList, _temporaryTodoText */
         // console.log(this);
         this.form.addEventListener("submit", event => {
-            console.log(event);
             event.preventDefault();
             //_expenseText is the getter for the input value
             if (this._expenseText) {
@@ -170,7 +170,7 @@ class ExpenseView {
     bindDeleteExpense(handler) {
         this.expenseList.addEventListener("click", event => {
             if (event.target.className === "delete") {
-                const id = event.target.parentElement.children[1].id;
+                const id = event.target.parentElement.id;
 
                 handler(id);
             }
