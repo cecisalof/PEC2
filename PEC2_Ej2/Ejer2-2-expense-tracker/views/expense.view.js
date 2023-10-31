@@ -8,20 +8,22 @@
 class ExpenseView {
     constructor() {
         this.app = this.getElement("#root");
-        this.balanceContainer = this.createElement("div");
+        this.mainHeader = this.createElement("h2");
+        this.mainHeader.textContent = "Expense Tracker";
+        this.balanceContainer = this.createElement("div", "container");
         this.subtitle = this.createElement("h4");
         this.subtitle.textContent = "Your Balance";
         this.balance = this.createElement("h1");
         this.balance.textContent = "$0.00";
-        this.incExpContainer = this.createElement("div");
+        this.incExpContainer = this.createElement("div", "inc-exp-container");
         this.div = this.createElement("div");
         this.income = this.createElement("h4");
         this.income.textContent = "Income";
-        this.moneyPlus = this.createElement("p");
+        this.moneyPlus = this.createElement("p", ["money", "plus"]);
         this.div2 = this.createElement("div");
         this.expense = this.createElement("h4");
         this.expense.textContent = "Expense";
-        this.moneyMinus = this.createElement("p");
+        this.moneyMinus = this.createElement("p", ["money", "minus"]);
         this.div.append(this.income, this.moneyPlus);
         this.div2.append(this.expense, this.moneyMinus);
         this.incExpContainer.append(this.div, this.div2);
@@ -33,24 +35,27 @@ class ExpenseView {
         this.form = this.createElement("form");
         this.input = this.createElement("input");
         this.input.type = "text";
-        this.input.label = "Text";
+        this.label = this.createElement("label")
+        this.label.innerText = "Text";
         this.input.placeholder = "Enter text...";
         this.input.name = "Text";
         this.amountInput = this.createElement("input");
         this.amountInput.type = "number";
-        this.amountInput.label = "Amount (negative - expense, positive - income)";
+        this.amountInputLabel = this.createElement("label")
+        this.amountInputLabel.innerText = "Amount \n (negative - expense, positive - income)";
         this.amountInput.placeholder = "Enter amount...";
         this.amountInput.name = "Amount";
-        this.submitButton = this.createElement("button");
+        this.submitButton = this.createElement("button", "btn");
         this.submitButton.textContent = "Add transaction";
-        this.form.append(this.input, this.amountInput, this.submitButton);
+        this.form.append(this.label, this.input, this.amountInputLabel, this.amountInput, this.submitButton);
         this.title = this.createElement("h2");
         this.title.textContent = "Expense Tracker";
-        this.app.append(this.title, this.balanceContainer, this.subtitle, this.balance, this.incExpContainer, this.history, this.expenseList, this.newTransaction, this.form);
+        this.app.append(this.mainHeader, this.balanceContainer, this.subtitle, this.balance, this.incExpContainer, this.history, this.expenseList, this.newTransaction, this.form);
 
         this._temporaryExpenseText = "";
         this._temporaryExpenseAmount = "";
         this._initLocalListeners();
+        console.log(this.input);
     }
 
     // Getter for the input value
@@ -74,7 +79,9 @@ class ExpenseView {
     // Create an element
     createElement(tag, className) {
         const element = document.createElement(tag);
-        if (className) element.classList.add(className);
+        // considering multiple clases
+        typeof className === 'object' ? element.classList.add(...className) : element.classList.add(className);
+        
         return element;
     }
 
@@ -103,7 +110,15 @@ class ExpenseView {
             // Create nodes
             // Loop through the expenses and display a checkbox, span, and delete button for every existing todo
             expenses.forEach(expense => {
-                const li = this.createElement("li");
+
+                let li;
+                // considering input detail color based on expense amount
+                if (expense.amount > 0) {
+                    li = this.createElement("li", "plus");
+                } else {
+                    li = this.createElement("li", "minus");
+                }
+                // const li = this.createElement("li");
                 li.id = expense.id;
 
                 const text = this.createElement("span");
@@ -116,15 +131,7 @@ class ExpenseView {
                 span.textContent = expense.amount;
                 // li.textContent = expense.text;
 
-                //   if (expense) {
-                //     const strike = this.createElement("s");
-                //     strike.textContent = expense.text;
-                //     span.append(strike);
-                //   } else {
-                //     span.textContent = expense.text;
-                //   }
-
-                const deleteButton = this.createElement("button", "delete");
+                const deleteButton = this.createElement("button", "delete-btn");
                 deleteButton.textContent = "x";
                 li.append(deleteButton, text, span);
 

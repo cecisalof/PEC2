@@ -29,6 +29,12 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: center;
+}
+
 h3 {
   border-bottom: 1px solid #bbb;
   padding-bottom: 10px;
