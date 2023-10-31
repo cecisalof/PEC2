@@ -52,10 +52,9 @@ class ExpenseView {
         this.title.textContent = "Expense Tracker";
         this.app.append(this.mainHeader, this.balanceContainer, this.subtitle, this.balance, this.incExpContainer, this.history, this.expenseList, this.newTransaction, this.form);
 
-        this._temporaryExpenseText = "";
-        this._temporaryExpenseAmount = "";
+        // this._temporaryExpenseText = "";
+        this._temporaryExpenseAmount = 0;
         this._initLocalListeners();
-        console.log(this.input);
     }
 
     // Getter for the input value
@@ -64,7 +63,6 @@ class ExpenseView {
     }
 
     get _expenseAmount() {
-        console.log(this.amountInput.value);
         return this.amountInput.value;
     }
 
@@ -79,9 +77,14 @@ class ExpenseView {
     // Create an element
     createElement(tag, className) {
         const element = document.createElement(tag);
-        // considering multiple clases
-        typeof className === 'object' ? element.classList.add(...className) : element.classList.add(className);
-        
+        // considering multiple clases -  REFACTOR
+        if (className) {
+            if (typeof className !== 'object') {
+                element.classList.add(className)
+            } else {
+                element.classList.add(...className)
+            }
+        }
         return element;
     }
 
@@ -123,8 +126,8 @@ class ExpenseView {
 
                 const text = this.createElement("span");
                 text.textContent = expense.text;
-                text.contentEditable = true;
-                text.classList.add("editable");
+                // text.contentEditable = true;
+                // text.classList.add("editable");
                 const span = this.createElement("span");
                 span.contentEditable = true;
                 span.classList.add("editable");
@@ -147,9 +150,8 @@ class ExpenseView {
     _initLocalListeners() {
         this.expenseList.addEventListener("input", event => {
             if (event.target.className === "editable") {
-                // sets innerText as temporaryTodoText
-                this._temporaryExpenseText = event.target.innerText;
-                this.__temporaryExpenseAmount = event.target.innerText;
+                // sets innerText as __temporaryExpenseAmount
+                this._temporaryExpenseAmount = event.target.textContent;
             }
         });
     }
@@ -176,7 +178,7 @@ class ExpenseView {
 
     bindDeleteExpense(handler) {
         this.expenseList.addEventListener("click", event => {
-            if (event.target.className === "delete") {
+            if (event.target.className === "delete-btn") {
                 const id = event.target.parentElement.id;
 
                 handler(id);
@@ -186,15 +188,15 @@ class ExpenseView {
 
     // bindEditExpense(handler) {
     //     console.log(handler);
-    //   this.expenseList.addEventListener("focusout", event => {
-    //     if (this._temporaryExpenseText  || this._temporaryExpenseAmount) {
-    //       const id = event.target.parentElement.id;
+    //     this.expenseList.addEventListener("focusout", event => {
+    //         if (this._temporaryExpenseAmount) {
+    //             const id = event.target.parentElement.id;
 
-    //       handler(id, this._temporaryExpenseText, this._temporaryExpenseAmount);
-    //       this._temporaryExpenseText = "";
-    //       this.__temporaryExpenseAmount= "";
-    //     }
-    //   });
+    //             handler(id, this._temporaryExpenseAmount);
+               
+    //             this._temporaryExpenseAmount = 0;
+    //         }
+    //     });
     // }
 
     // bindToggleTodo(handler) {
