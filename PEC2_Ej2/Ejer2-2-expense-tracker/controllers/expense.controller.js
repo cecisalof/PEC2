@@ -16,26 +16,46 @@ class ExpenseController {
     this.view = view;
 
     // Explicit this binding
-
-    //binding onExpenseListChanged method in the controller
     this.service.bindExpenseListChanged(this.onExpenseListChanged);
     this.view.bindAddExpense(this.handleAddExpense);
-    // this.view.bindAddTodo(this.service.addTodo)
-    //   this.view.bindEditTodo(this.handleEditTodo);
+    // this.view.bindEditExpense(this.handleEditExpense);
     this.view.bindDeleteExpense(this.handleDeleteExpense);
-    //   this.view.bindToggleTodo(this.handleToggleTodo);
+    // this.view.bindUpdateIncome(this.handleUpdateIncome);
 
-    // Display initial todos
+    // Display initial expenses
     this.onExpenseListChanged(this.service.expenses);
 
     // at runtime this keyword is exchange with the object reference of the object we are dealing with.
     // 'this' is a default reference created internally to the object
     // console.log(this);
   }
+
   //  Method that calls displayTodos every time a todo changes.
   onExpenseListChanged = expenses => {
+    this.updateIncome(expenses)
     this.view.displayExpenses(expenses);
   };
+
+  // Update the balance, income and expense
+  updateIncome(transaction) {
+    const amounts = transaction.map(transaction => transaction.amount);
+    // console.log(amounts.reduce((acc, item) => {console.log(acc, item);}, 0));
+
+    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const income = amounts
+      .filter(item => item > 0)
+      .reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+    const expense = amounts
+      .filter(item => item < 0)
+      .reduce((acc, item) => (acc + item), 0).toFixed(2);
+
+    this.view.balance.innerText = `$${total}`;
+    this.view.moneyPlus.innerText = `$${income}`;
+    this.view.moneyMinus.innerText = `$${expense}`;
+  }
+
+
 
   // handlers that response to user/view events
   // we are using arrow functions on all the handle events. This allows us to call them from the view using the this context of the controller. 
@@ -44,8 +64,8 @@ class ExpenseController {
     this.service.addExpense(expenseText, expenseAmount);
   };
 
-  // handleEditTodo = (id, todoText) => {
-  //   this.service.editTodo(id, todoText);
+  // handleEditExpense = (id, expenseText) => {
+  //   this.service.editExpense(id, expenseText);
   // };
 
   handleDeleteExpense = id => {

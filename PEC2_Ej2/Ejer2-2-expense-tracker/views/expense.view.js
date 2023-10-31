@@ -18,19 +18,16 @@ class ExpenseView {
         this.income = this.createElement("h4");
         this.income.textContent = "Income";
         this.moneyPlus = this.createElement("p");
-        this.moneyPlus.textContent = "+$0.00";
         this.div2 = this.createElement("div");
         this.expense = this.createElement("h4");
         this.expense.textContent = "Expense";
         this.moneyMinus = this.createElement("p");
-        this.moneyMinus.textContent = "-$0.00";
         this.div.append(this.income, this.moneyPlus);
         this.div2.append(this.expense, this.moneyMinus);
         this.incExpContainer.append(this.div, this.div2);
         this.history = this.createElement("h3");
         this.history.textContent = "History";
         this.expenseList = this.createElement("ul", "list");
-        // this.expenseItem = this.createElement("li");
         this.newTransaction = this.createElement("h3");
         this.newTransaction.textContent = "Add new transaction";
         this.form = this.createElement("form");
@@ -51,7 +48,8 @@ class ExpenseView {
         this.title.textContent = "Expense Tracker";
         this.app.append(this.title, this.balanceContainer, this.subtitle, this.balance, this.incExpContainer, this.history, this.expenseList, this.newTransaction, this.form);
 
-        this._temporaryTodoText = "";
+        this._temporaryExpenseText = "";
+        this._temporaryExpenseAmount = "";
         this._initLocalListeners();
     }
 
@@ -61,6 +59,7 @@ class ExpenseView {
     }
 
     get _expenseAmount() {
+        console.log(this.amountInput.value);
         return this.amountInput.value;
     }
 
@@ -142,7 +141,8 @@ class ExpenseView {
         this.expenseList.addEventListener("input", event => {
             if (event.target.className === "editable") {
                 // sets innerText as temporaryTodoText
-                this._temporaryTodoText = event.target.innerText;
+                this._temporaryExpenseText = event.target.innerText;
+                this.__temporaryExpenseAmount = event.target.innerText;
             }
         });
     }
@@ -154,7 +154,7 @@ class ExpenseView {
     bindAddExpense(handler) {
         // here the handler is handleAddTodo (from controller).
         // console.log(handler);
-        /* in the context of the constructor, this return the DOM elements: app, form, input, submitButton, title, todoList, _temporaryTodoText */
+        /* in the context of the constructor, this return the DOM elements: app, form, input, submitButton, title, todoList, _temporaryExpenseText */
         // console.log(this);
         this.form.addEventListener("submit", event => {
             event.preventDefault();
@@ -177,13 +177,15 @@ class ExpenseView {
         });
     }
 
-    // bindEditTodo(handler) {
-    //   this.todoList.addEventListener("focusout", event => {
-    //     if (this._temporaryTodoText) {
+    // bindEditExpense(handler) {
+    //     console.log(handler);
+    //   this.expenseList.addEventListener("focusout", event => {
+    //     if (this._temporaryExpenseText  || this._temporaryExpenseAmount) {
     //       const id = event.target.parentElement.id;
 
-    //       handler(id, this._temporaryTodoText);
-    //       this._temporaryTodoText = "";
+    //       handler(id, this._temporaryExpenseText, this._temporaryExpenseAmount);
+    //       this._temporaryExpenseText = "";
+    //       this.__temporaryExpenseAmount= "";
     //     }
     //   });
     // }
