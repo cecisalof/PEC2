@@ -3,8 +3,7 @@ function multiplyBy10(array) {
 }
 
 function shiftRight(array) {
-  // your code here
-  console.log(array);
+  return array.map((_, i, a) => a[(i + a.length - 1) % a.length]);
 }
 
 function onlyVowels(array) {
