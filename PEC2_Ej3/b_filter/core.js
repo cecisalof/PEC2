@@ -7,7 +7,7 @@ function onlyOneWord(array) {
 }
 
 function positiveRowsOnly(array) {
-  // your code here
+  return array.filter(secondArray => secondArray.every(numbers => numbers >= 1));
 }
 
 function allSameVowels(array) {
