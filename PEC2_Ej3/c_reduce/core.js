@@ -16,8 +16,14 @@ function objectify(array) {
 }
 
 function luckyNumbers(array) {
-  // your code here
-  // console.log(array);
+  const luckyNumbers = [];
+  const luckySentence = 'Your lucky numbers are: '
+  array.reduce((collector, num) => {
+    luckyNumbers.push(String(num));
+  }, []);
+  const lastElement = luckyNumbers.pop();
+  const join = luckyNumbers.join(', ');
+  return luckySentence + join + ', and ' + lastElement;
 }
 
 module.exports = {
