@@ -3,7 +3,9 @@ function sum(array) {
 }
 
 function productAll(array) {
-  console.log(array);
+  let list = [];
+  array.map(lists => lists.map(numbers => list.push(numbers)));
+  return list.reduce((a, b) => a * b)
 }
 
 function objectify(array) {
@@ -15,7 +17,7 @@ function objectify(array) {
 
 function luckyNumbers(array) {
   // your code here
-  console.log(array);
+  // console.log(array);
 }
 
 module.exports = {
