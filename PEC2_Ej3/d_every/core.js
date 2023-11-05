@@ -9,9 +9,7 @@ function allEven(input) {
 // are of the same type.
 
 function allSameType(input) {
-  return input.every((currentValue, i, array) => {
-    return typeof currentValue === typeof array[0]
-  });
+  return input.every((currentValue, i, array) => typeof currentValue === typeof array[0]);
 }
 
 // Check to see if every element in the matrix is
@@ -19,23 +17,8 @@ function allSameType(input) {
 // greater than 0.
 
 function positiveMatrix(input) {
-  // input.every((currentValue, i, array) => {
-  //   console.log(typeof currentValue === typeof array[i]);
-  //   typeof currentValue === typeof array[i]
-  //   console.log(i);
-  // });
-  // for (let i = 0; i < input.length; i++) {
-  //   const arrays = input[i]
-  //   arrays.every(currentValue => typeof currentValue === 'object');
-  //   // This loop is for inner-arrays
-  //   for (let j = 0; j < arrays.length; j++) {
-  //     // Accessing each elements of inner-array
-  //     const numbers = arrays[j];
-  //     matrixNumbers.push(numbers);
-  //   }
-  // }
-  // matrixNumbers.every((currentValue) => currentValue > 0);
-  // return input
+  return input.every((currentValue, i, array) => typeof currentValue === typeof array[i] && currentValue.every(numbers => numbers > 0)
+  );
 }
 
 // Check that all items in an array are strings
