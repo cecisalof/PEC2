@@ -16,7 +16,7 @@ return input.some(element => element.length > 10)
 // the matrix are true.
 
 function truePossibilities (input) {
-  return input;
+  return input.some(array => array.some(element => element == true));
 };
 
 // Check to see if 'Lost' is in
