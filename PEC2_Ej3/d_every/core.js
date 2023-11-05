@@ -25,7 +25,8 @@ function positiveMatrix(input) {
 // and that they all only contain the same vowels.
 
 function allSameVowels(input) {
-  return input;
+  const vowelArray = input.map(word => word.replace(/[bcdfghjklmnpqrstvwxyz]/g, ''));
+  return input.every((currentValue) => typeof currentValue === 'string' && vowelArray.every(currentValue => /^(.)\1+$/.test(currentValue)))
 }
 
 module.exports = {
