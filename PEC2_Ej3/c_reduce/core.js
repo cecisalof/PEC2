@@ -16,6 +16,7 @@ function objectify(array) {
 }
 
 function luckyNumbers(array) {
+  // needs review!
   const luckyNumbers = [];
   const luckySentence = 'Your lucky numbers are: '
   array.reduce((collector, num) => {

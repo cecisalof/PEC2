@@ -52,19 +52,57 @@ function schedule(dayName) {
 function animalCount(species) {
   let animalCount;
   if (species !== undefined) {
-   data.animals.map(animal => {
+    data.animals.map(animal => {
       if (animal.name === species) {
-        animalCount = animal.residents.length 
+        animalCount = animal.residents.length
       }
     });
     return animalCount
   }
 }
 
-// function animalMap(options) {
-//   // console.log('options', options);
-//   // your code here
-// }
+function animalMap(options) {
+  const location = [];
+  const ne = [];
+  const nw = [];
+  const se = [];
+  const sw = [];
+
+  console.log('options', options);
+  if (options === undefined) {
+    data.animals.map(animal => {
+      location.push(animal.location);
+    })
+  }
+
+  let locationSet = new Set(location);
+  for (const value of locationSet) {
+    data.animals.map(animal => {
+      switch (value) {
+        case 'NE':
+          if (animal.location === value) {
+            ne.push(animal.name);
+          }
+          break;
+        case 'NW':
+          if (animal.location === value) {
+            nw.push(animal.name);
+          }
+          break;
+        case 'SE':
+          if (animal.location === value) {
+            se.push(animal.name);
+          }
+          break;
+        case 'SW':
+          if (animal.location === value) {
+            sw.push(animal.name);
+          }
+          break;
+      }
+    })
+  }
+}
 
 // function animalPopularity(rating) {
 //   // your code here
@@ -98,7 +136,7 @@ module.exports = {
   entryCalculator,
   schedule,
   animalCount,
-  // animalMap,
+  animalMap,
   // animalPopularity,
   // animalsByIds,
   // animalByName,
