@@ -23,7 +23,7 @@ function truePossibilities (input) {
 // the phrase (using some).
 
 function lostCarcosa (input) {
-  return input;
+  return input.some(strings => strings.includes('Lost'));
 };
 
 module.exports = {
