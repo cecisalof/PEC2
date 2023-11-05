@@ -1,7 +1,6 @@
 const data = require('./data');
 
 function entryCalculator(entrants) {
-  console.log(entrants);
   if (entrants === undefined) {
     return 0
   } else if (Object.keys(entrants).length === 0) {
@@ -49,12 +48,18 @@ function schedule(dayName) {
     return finalSchedule;
   }
 }
-// }
 
-// function animalCount(species) {
-//   // console.log('species', species);
-//   // your code here
-// }
+function animalCount(species) {
+  let animalCount;
+  if (species !== undefined) {
+   data.animals.map(animal => {
+      if (animal.name === species) {
+        animalCount = animal.residents.length 
+      }
+    });
+    return animalCount
+  }
+}
 
 // function animalMap(options) {
 //   // console.log('options', options);
@@ -92,7 +97,7 @@ function schedule(dayName) {
 module.exports = {
   entryCalculator,
   schedule,
-  // animalCount,
+  animalCount,
   // animalMap,
   // animalPopularity,
   // animalsByIds,
