@@ -9,7 +9,7 @@ function anyGreaterThan10 (input) {
 // the array is longer than 10 characters.
 
 function longWord (input) {
-  return input;
+return input.some(element => element.length > 10)
 };
 
 // Check to see if any of the elements in
