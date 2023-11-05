@@ -8,7 +8,7 @@ class Expense {
     constructor({ text, amount }) {
         this.id = this.uuidv4();
         this.text = text,
-        this.amount = parseInt(amount)
+        this.amount = typeof amount === "number" ? amount : parseInt(amount)
     }
 
     // Método que genera ID aleatorias

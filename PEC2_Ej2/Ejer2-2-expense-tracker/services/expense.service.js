@@ -35,21 +35,17 @@ class ExpenseService {
         this._commit(this.expenses);
     }
 
-    // editExpense(id, updatedText, updateIncome) {
-    //     console.log(updateIncome);
-    //     console.log(updatedText);
+    // editExpense(id, updateIncome) {
     //     this.expenses = this.expenses.map(expense => {
     //         expense.id === id
     //             ? new Expense({
     //                 ...expense,
-    //                 text: updatedText,
     //                 amount: updateIncome
     //             })
     //             : expense
-    //     }
-    //     );
-    //     console.log(this.expenses);
+    //     });
     //     // After every change to this.expenses, we can call _commit private method.
+    //     // NEEDS REVIEW!!!!
     //     this._commit(this.expenses);
     // }
 
@@ -58,13 +54,5 @@ class ExpenseService {
         // After every change to this.todos, we can call _commit private method.
         this._commit(this.expenses);
     }
-
-    // toggleTodo(_id) {
-    //   this.todos = this.todos.map(todo =>
-    //     todo.id === _id ? new Todo({ ...todo, complete: !todo.complete }) : todo
-    //   );
-    //   // After every change to this.todos, we can call _commit private method.
-    //   this._commit(this.todos);
-    // }
 }
 

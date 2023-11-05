@@ -103,45 +103,37 @@ class ExpenseView {
             this.expenseList.removeChild(this.expenseList.firstChild);
         }
 
-        // Show default message
-        // Check if any todos exist. If they don't, we'll display an empty list message.
-        if (expenses.length === 0) {
-            // const p = this.createElement("p");
-            // p.textContent = "Nothing to do! Add a task?";
-            // this.expenseList.append(p);
-        } else {
-            // Create nodes
-            // Loop through the expenses and display a checkbox, span, and delete button for every existing todo
-            expenses.forEach(expense => {
+        // Create nodes
+        // Loop through the expenses and display a checkbox, span, and delete button for every existing todo
+        expenses.forEach(expense => {
 
-                let li;
-                // considering input detail color based on expense amount
-                if (expense.amount > 0) {
-                    li = this.createElement("li", "plus");
-                } else {
-                    li = this.createElement("li", "minus");
-                }
-                // const li = this.createElement("li");
-                li.id = expense.id;
+            let li;
+            // considering input detail color based on expense amount
+            if (expense.amount > 0) {
+                li = this.createElement("li", "plus");
+            } else {
+                li = this.createElement("li", "minus");
+            }
+            // const li = this.createElement("li");
+            li.id = expense.id;
 
-                const text = this.createElement("span");
-                text.textContent = expense.text;
-                // text.contentEditable = true;
-                // text.classList.add("editable");
-                const span = this.createElement("span");
-                span.contentEditable = true;
-                span.classList.add("editable");
-                span.textContent = expense.amount;
-                // li.textContent = expense.text;
+            const text = this.createElement("span");
+            text.textContent = expense.text;
+            // text.contentEditable = true;
+            // text.classList.add("editable");
+            const span = this.createElement("span");
+            span.contentEditable = true;
+            span.classList.add("editable");
+            span.textContent = expense.amount;
+            // li.textContent = expense.text;
 
-                const deleteButton = this.createElement("button", "delete-btn");
-                deleteButton.textContent = "x";
-                li.append(deleteButton, text, span);
+            const deleteButton = this.createElement("button", "delete-btn");
+            deleteButton.textContent = "x";
+            li.append(deleteButton, text, span);
 
-                // Append nodes
-                this.expenseList.append(li);
-            });
-        }
+            // Append nodes
+            this.expenseList.append(li);
+        });
 
         // Debugging
         // console.log(expenses);
@@ -161,10 +153,6 @@ class ExpenseView {
 
     // In this case we are responding to de submit event on the form, and invoking the corresponding handler.
     bindAddExpense(handler) {
-        // here the handler is handleAddTodo (from controller).
-        // console.log(handler);
-        /* in the context of the constructor, this return the DOM elements: app, form, input, submitButton, title, todoList, _temporaryExpenseText */
-        // console.log(this);
         this.form.addEventListener("submit", event => {
             event.preventDefault();
             //_expenseText is the getter for the input value
@@ -172,6 +160,8 @@ class ExpenseView {
                 // input.value is passed as parameter of handleAddExpense()
                 handler(this._expenseText, this._expenseAmount);
                 this._resetInput();
+            } else {
+                alert('Please add a text and amount')
             }
         });
     }
@@ -187,25 +177,13 @@ class ExpenseView {
     }
 
     // bindEditExpense(handler) {
-    //     console.log(handler);
     //     this.expenseList.addEventListener("focusout", event => {
     //         if (this._temporaryExpenseAmount) {
     //             const id = event.target.parentElement.id;
 
     //             handler(id, this._temporaryExpenseAmount);
-               
-    //             this._temporaryExpenseAmount = 0;
+    //             // this._temporaryExpenseAmount = 0;
     //         }
     //     });
-    // }
-
-    // bindToggleTodo(handler) {
-    //   this.todoList.addEventListener("change", event => {
-    //     if (event.target.type === "checkbox") {
-    //       const id = event.target.parentElement.id;
-
-    //       handler(id);
-    //     }
-    //   });
     // }
 }

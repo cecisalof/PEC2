@@ -32,6 +32,7 @@ class ExpenseController {
 
   //  Method that calls displayTodos every time a todo changes.
   onExpenseListChanged = expenses => {
+    // review here when editing transaction!
     this.updateIncome(expenses)
     this.view.displayExpenses(expenses);
   };
@@ -64,8 +65,8 @@ class ExpenseController {
     this.service.addExpense(expenseText, expenseAmount);
   };
 
-  // handleEditExpense = (id, expenseText) => {
-  //   this.service.editExpense(id, expenseText);
+  // handleEditExpense = (id, expenseAmount) => {
+  //   this.service.editExpense(id, expenseAmount);
   // };
 
   handleDeleteExpense = id => {
